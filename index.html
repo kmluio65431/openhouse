@@ -10,8 +10,8 @@
       text-align: center;
       margin: 0;
       padding: 0;
+      color: white;
       background-image: url('background.jpg');
-      background-size: cover;
     }
 
     .container {
@@ -64,6 +64,7 @@
     <div id="endPage">
       <h1 id="resultHeading">測驗結果！</h1>
       <p id="totalScore"></p>
+      <p>快拿著你的手機去領取小獎品吧！</p>
     </div>
   </div>
 
@@ -138,13 +139,14 @@
       questionPage.style.display = "none";
       endPage.style.display = "block";
       
-      // 根據總得分更改背景圖
-      if (totalScore >= 200) {
-        endPage.style.backgroundImage = "url('highScoreBackground.jpg')";
-      } else if (totalScore >= 100) {
-        endPage.style.backgroundImage = "url('mediumScoreBackground.jpg')";
+      // 根據最後一題的選擇更改背景圖
+      const lastQuestionOption = questions[questions.length - 1].options[totalScore % 3];
+      if (lastQuestionOption === "貓") {
+        endPage.style.backgroundImage = "url('catBackground.png')";
+      } else if (lastQuestionOption === "狗") {
+        endPage.style.backgroundImage = "url('dogBackground.png')";
       } else {
-        endPage.style.backgroundImage = "url('lowScoreBackground.jpg')";
+        endPage.style.backgroundImage = "url('unicornBackground.png')";
       }
     }
   </script>
