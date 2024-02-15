@@ -1,10 +1,152 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>你好GitHub</title>
-  </head>
-  <body>
-    <h1>覺得厲害</h1>
-  </body>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>無職轉生！心理測驗</title>
+  <style>
+    body {
+      font-family: "辰宇落雁體", cursive;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-image: url('background.jpg');
+      background-size: cover;
+    }
+
+    .container {
+      max-width: 90%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #fff6dc;
+      border: none;
+      font-family: "辰宇落雁體", cursive;
+    }
+
+    .option {
+      margin-bottom: 10px;
+    }
+
+    #endPage {
+      display: none;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="coverPage">
+      <h1>封面</h1>
+      <button onclick="startTest()">開始測驗</button>
+    </div>
+
+    <div id="questionPage" style="display: none;">
+      <h1>無職轉生！心理測驗</h1>
+      <div id="question"></div>
+    </div>
+
+    <div id="endPage">
+      <h1 id="resultHeading">測驗結果！</h1>
+      <p id="totalScore"></p>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "你睜開眼睛，發現自己躺在地上，<br>突然聽見旁邊傳來開門聲，<br>這時，你會⋯⋯",
+        options: ["裝沒事，融入他們", "問清楚發生什麼事", "躺回去，一切都是夢"]
+      },
+      {
+        question: "天啊，來人有很大的攻擊性，<br>你要⋯⋯",
+        options: ["先發制人，who怕who", "三十六計，走為上策", "跪下來求他放過自己"]
+      },
+      {
+        question: "恭喜你安全渡過這次難關了，<br>突然覺得肚子好餓喔，<br>選一個專業能力作為獎勵吧！",
+        options: ["講解理化原理，讓所有人折服，得到食物", "背誦古詩驚艷路人，得到食物", "救治路邊倒下的病人，得到食物"]
+      },
+      {
+        question: "最後，你決定在這個異世界繼續生活，<br>如果可以帶一隻動物來的話，<br>你會選擇⋯⋯",
+        options: ["貓", "狗", "獨角獸"]
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let totalScore = 0;
+    const coverPage = document.getElementById("coverPage");
+    const questionPage = document.getElementById("questionPage");
+    const endPage = document.getElementById("endPage");
+    const questionElement = document.getElementById("question");
+    const resultHeading = document.getElementById("resultHeading");
+    const totalScoreElement = document.getElementById("totalScore");
+
+    function startTest() {
+      coverPage.style.display = "none";
+      questionPage.style.display = "block";
+      displayQuestion(currentQuestionIndex);
+    }
+
+    function displayQuestion(questionIndex) {
+      const currentQuestion = questions[questionIndex];
+      questionElement.innerHTML = `<h2>${currentQuestion.question}</h2>`;
+      currentQuestion.options.forEach((option, index) => {
+        let score = 1;
+        if (index === 1) score = 10;
+        if (index === 2) score = 100;
+        questionElement.innerHTML += `
+          <div class="option">
+            <button onclick="selectOption(${score})">${option}</button>
+          </div>
+        `;
+      });
+    }
+
+    function selectOption(score) {
+      totalScore += score;
+      console.log("選擇了選項，得分：" + score);
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        displayQuestion(currentQuestionIndex);
+      } else {
+        nextPage();
+      }
+    }
+
+    function nextPage() {
+      resultHeading.textContent = "測驗結果！";
+      totalScoreElement.textContent = `您的總得分是：${totalScore}`;
+      questionPage.style.display = "none";
+      endPage.style.display = "block";
+      
+      // 根據總得分更改背景圖
+      if (totalScore >= 200) {
+        endPage.style.backgroundImage = "url('highScoreBackground.jpg')";
+      } else if (totalScore >= 100) {
+        endPage.style.backgroundImage = "url('mediumScoreBackground.jpg')";
+      } else {
+        endPage.style.backgroundImage = "url('lowScoreBackground.jpg')";
+      }
+    }
+  </script>
+</body>
 </html>
