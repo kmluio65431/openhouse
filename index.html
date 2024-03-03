@@ -1,154 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>無職轉生！轉生到異世界來找工作吧！</title>
-  <style>
-    body {
-      font-family: "辰宇落雁體", cursive;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      color: white;
-      background-image: url('background.jpg');
-    }
-
-    .container {
-      max-width: 90%;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    h1 {
-      font-size: 20px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #fff6dc;
-      border: none;
-      font-family: "辰宇落雁體", cursive;
-    }
-
-    .option {
-      margin-bottom: 10px;
-    }
-
-    #endPage {
-      display: none;
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>無職轉生！到異世界找工作吧！</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<style>
+  body {
+    
+    font-family: '辰宇落雁體', sans-serif;
+    background-image: url('background.jpg'); /* 更改為您想要的背景圖片 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .title {
+    background-color: #004080;
+    color: #ffe791;
+    text-align: center;
+    padding: 20px;
+  }
+  .content {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  button {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #004080;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div id="coverPage">
-      <h1>封面</h1>
-      <button onclick="startTest()">開始測驗</button>
-    </div>
+<div class="title">
+  <h1>無職轉生！到異世界找工作吧！</h1>
+</div>
+<div class="content">
+  <h2>前言</h2>
+  <p>身為一位交作業大學的學生，你已經習慣新竹的風很大，頂樓很冷。然而，有一天，你一覺醒來，發現自己竟然轉生到異世界⋯⋯加油，勇士！在異世界裡找到工作吧！</p>
+  <button id="start-test-button">測驗開始</button>
+</div>
 
-    <div id="questionPage" style="display: none;">
-      <h1>無職轉生！心理測驗</h1>
-      <div id="question"></div>
-    </div>
+<script>
+  $(document).ready(function(){
+    $('#start-test-button').click(function(){
+      window.location.href = 'question1.html';
+    });
+  });
+</script>
 
-    <div id="endPage">
-      <h1 id="resultHeading">測驗結果！</h1>
-      <p id="totalScore"></p>
-      <p>快拿著你的手機去領取小獎品吧！</p>
-    </div>
-  </div>
-
-  <script>
-    const questions = [
-      {
-        question: "你睜開眼睛，發現自己躺在地上，<br>突然聽見旁邊傳來開門聲，<br>這時，你會⋯⋯",
-        options: ["裝沒事，融入他們", "問清楚發生什麼事", "躺回去，一切都是夢"]
-      },
-      {
-        question: "天啊，來人有很大的攻擊性，<br>你要⋯⋯",
-        options: ["先發制人，who怕who", "三十六計，走為上策", "跪下來求他放過自己"]
-      },
-      {
-        question: "恭喜你安全渡過這次難關了，<br>突然覺得肚子好餓喔，<br>選一個專業能力作為獎勵吧！",
-        options: ["講解理化原理，讓所有人折服，得到食物", "背誦古詩驚艷路人，得到食物", "救治路邊倒下的病人，得到食物"]
-      },
-      {
-        question: "最後，你決定在這個異世界繼續生活，<br>如果可以帶一隻動物來的話，<br>你會選擇⋯⋯",
-        options: ["貓", "狗", "獨角獸"]
-      }
-    ];
-
-    let currentQuestionIndex = 0;
-    let totalScore = 0;
-    const coverPage = document.getElementById("coverPage");
-    const questionPage = document.getElementById("questionPage");
-    const endPage = document.getElementById("endPage");
-    const questionElement = document.getElementById("question");
-    const resultHeading = document.getElementById("resultHeading");
-    const totalScoreElement = document.getElementById("totalScore");
-
-    function startTest() {
-      coverPage.style.display = "none";
-      questionPage.style.display = "block";
-      displayQuestion(currentQuestionIndex);
-    }
-
-    function displayQuestion(questionIndex) {
-      const currentQuestion = questions[questionIndex];
-      questionElement.innerHTML = `<h2>${currentQuestion.question}</h2>`;
-      currentQuestion.options.forEach((option, index) => {
-        let score = 1;
-        if (index === 1) score = 10;
-        if (index === 2) score = 100;
-        questionElement.innerHTML += `
-          <div class="option">
-            <button onclick="selectOption(${score})">${option}</button>
-          </div>
-        `;
-      });
-    }
-
-    function selectOption(score) {
-      totalScore += score;
-      console.log("選擇了選項，得分：" + score);
-      nextQuestion();
-    }
-
-    function nextQuestion() {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < questions.length) {
-        displayQuestion(currentQuestionIndex);
-      } else {
-        nextPage();
-      }
-    }
-
-    function nextPage() {
-      resultHeading.textContent = "測驗結果！";
-      //totalScoreElement.textContent = `您的總得分是：${totalScore}`;
-      questionPage.style.display = "none";
-      endPage.style.display = "block";
-      
-      // 根據最後一題的選擇更改背景圖
-      const lastQuestionOption = questions[questions.length - 1].options[totalScore % 3];
-      if (lastQuestionOption === "貓") {
-        endPage.style.backgroundImage = "url('catBackground.png')";
-      } else if (lastQuestionOption === "狗") {
-        endPage.style.backgroundImage = "url('dogBackground.png')";
-      } else {
-        endPage.style.backgroundImage = "url('unicornBackground.png')";
-      }
-    }
-  </script>
 </body>
 </html>
