@@ -63,13 +63,7 @@
   <h1>無職轉生！到異世界找工作吧！</h1>
 
   <!-- 解析內容 -->
-  <p>
-    恭喜你，準備好要來當社畜了嗎！<br>
-    在面對陌生環境，您會：隨機應變能力強，適合多方接觸<br>
-    在遇見挑戰時，您會：較為積極，會尋找解決方法，直面挑戰<br>
-    您要用什麼能力來謀生呢！原來您是：理工科<br>
-    最後，路上太危險了，請帶上：貓咪有高傲、獨立特性，適合單打獨鬥 吧！
-  </p>
+  <p id="resultText"></p>
 
   <!-- 測驗結果圖片 -->
   <div id="resultImage"></div>
@@ -101,9 +95,9 @@ $(document).ready(function() {
       'c': '醫療相關'
     },
     'question4': {
-      'a': '貓咪有高傲、獨立特性，適合單打獨鬥',
-      'b': '狗通常作為夥伴，適合在群體中合作',
-      'c': '獨角獸是幻想生物，有更多創造力'
+      'a': '貓咪是個高傲、獨立特性的狠角色，適合單打獨鬥',
+      'b': '狗是個最佳夥伴，適合在群體中合作',
+      'c': '獨角獸是幻想生物耶，看來你有 hen 多創造力'
     }
   };
 
@@ -116,26 +110,12 @@ $(document).ready(function() {
     最後，路上太危險了，請帶上：${analysis['question4'][answers['question4']]}吧！
   `;
 
-  // 將測驗結果繪製到 Canvas 上
-  const canvas = document.getElementById('resultCanvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = 500; // 修改寬度
-  canvas.height = 300; // 修改高度
-
-  ctx.fillStyle = '#00c4cc';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.font = '20px Arial'; // 修改標題文字大小
-  ctx.fillStyle = '#ffffff'; // 修改標題文字顏色
-  ctx.textAlign = 'center'; // 文字置中
-  ctx.fillText("無職轉生！到異世界找工作吧！", canvas.width / 2, 40);
-
-  ctx.font = '16px Arial'; // 修改內文文字大小
-  ctx.fillText(resultText, 20, 80); // 修改文字位置
+  // 將測驗結果顯示在網頁上
+  $('#resultText').html(resultText);
 
   // 點擊分享按鈕，下載結果圖片
   $('#shareButton').click(function() {
-    const imgURL = canvas.toDataURL();
+    const imgURL = document.getElementById('resultCanvas').toDataURL();
     const link = document.createElement('a');
     link.href = imgURL;
     link.download = '到攤位領取小禮物吧！.png';
